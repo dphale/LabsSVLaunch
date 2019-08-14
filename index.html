@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+  <head>
+    <title>TNS Labs - SV Launch Event</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+
+    <!-- // [START headline] -->
+    <div id="headline">
+      <div class="container">
+        <header>
+          <h1>TNS Labs</h1>
+          <h2>SF Launch Event</h2>
+        <p></p>
+        </header>
+        <div id="blurb">
+          <p>TNS Labs will identify, test, and implement technology to scale impact in the fight against poverty, leveraging TechnoServe's on-the-ground experience and strategic market-based approach</p>
+        </div>
+        <form method="post" id="register">
+           <h2>Join us for some fun</h2>
+           <p>Enter your name, answer some trivia questions about TechnoServe's work, and we will have a gift for you when you leave!</p>
+           <label for="name">Name</label>
+           <input type="text" name="name" id="name"
+              placeholder="First Name + Initial" required>
+           <input type="submit" value="Check in" class="submit">
+           <p></p>
+        </form>
+        <br>
+      </div>
+    </div>
+    <!-- // [END headline] -->
+
+    <!-- // [START first image section] -->
+    <div class="section">
+      <div class="container">
+        <header>
+          <h2>Our Impact</h2>
+          <p>Look around the room for examples of TechnoServe's work. Then see if you can answer the trivia questions below.</p>
+        </header>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <div class="images">
+          <img id="image1">
+        </div>
+        <form method="post" id="triviaAnswer1" class=triviaAnswer>
+          <label id=q1 for="guessField1"></label>
+          <p></p>
+          <input type="text" id="guessField1" class="guessField">
+          <input type="submit" value="Submit" class="submit">
+        </form>
+        <br>
+      </div>
+    </div>
+    <!-- // [END first image section] -->
+
+    <!-- // [START second image section] -->
+    <div class="section">
+      <div class="container">
+        <div class="images">
+          <img id="image2">
+          <p></p>
+        </div>
+        <form method="post" id="triviaAnswer2" class=triviaAnswer >
+          <label id=q2 for="guessField2"></label>
+          <p></p>
+          <input type="text" id="guessField2" class="guessField">
+          <input type="submit" value="Submit" class="submit">
+        </form>
+        <br>
+      </div>
+    </div>
+    <!-- // [END second image section] -->
+
+    <!-- // [START third image section] -->
+    <div class="section">
+      <div class="container">
+        <div class="images">
+          <img id="image3">
+          <p></p>
+        </div>
+        <form method="post" id="triviaAnswer3" class=triviaAnswer>
+          <label id=q3 for="guessField3"></label>
+          <p></p>
+          <input type="text" id="guessField3" class="guessField">
+          <input type="submit" value="Submit" class="submit">
+        </form>
+        <br>
+      </div>
+    </div>
+    <!-- // [END third image section] -->
+
+    <!-- // [START footer] -->
+    <footer>
+      <div class="container">
+        <p>add a footer later with launch date, location</p>
+      </div>
+    </footer>
+    <!-- // [END footer] -->
+
+  </body>
+</html>
+
+<script type="text/javascript" src="triviaQuestions.js"></script>
+
+<script>
+
+/*
+  var triviaQuestions = [
+    {
+      question : "How many farmers grow coffee globally (millions)?",
+      image : "images/parchiment.jpg",
+      imageName :"Coffee parchiment",
+      answer : 10
+    },
+    {
+      question : "In how many countries does TechnoServe have entrepreneurship training programs?",
+      image : "images/smartDuka.jpg",
+      imageName : "Duka Owner",
+      answer : 24
+    },
+    {
+      question : "What is one solution for 'remote sensing?",
+      image : "images/drone.jpg",
+      imageName : "Drone",
+      answer : ["satellite", "drone", "airplane"]
+    },
+    {
+      question : "In how many countries does TechnoServe operate?",
+      image : "images/drone.jpg",
+      imageName : "Drone",
+      answer : ["satellite", "drone", "airplane"]
+    },
+    {
+      question : "How many people did TNS help last year?",
+      image : "images/drone.jpg",
+      imageName : "Drone",
+      answer : ["satellite", "drone", "airplane"]
+    },
+    {
+      question : "What is the color of the sky?",
+      image : "images/drone.jpg",
+      imageName : "Drone",
+      answer : ["satellite", "drone", "airplane"]
+    },
+    {
+      question : "What is my dog's name?",
+      image : "images/drone.jpg",
+      imageName : "Drone",
+      answer : ["satellite", "drone", "airplane"]
+    },
+    {
+      question : "How long have I worked at TNS?",
+      image : "images/drone.jpg",
+      imageName : "Drone",
+      answer : ["satellite", "drone", "airplane"]
+    },
+    {
+      question : "Where is TNS HQ?",
+      image : "images/drone.jpg",
+      imageName : "Drone",
+      answer : ["satellite", "drone", "airplane"]
+    },
+    {
+      question : "How many fellows are in the Bay Area?",
+      image : "images/drone.jpg",
+      imageName : "Drone",
+      answer : ["satellite", "drone", "airplane"]
+    }
+  ];
+
+*/
+
+// get three random numbers out of a total of 10
+
+  var numArray = [];
+  getQuestionNums();
+  publishQuestions();
+
+  function getQuestionNums() {
+    for (i = 0; i < 3; i++) {
+      let rndmNum = Math.floor(Math.random()*10);
+      while (numArray.includes(rndmNum)) {
+        rndmNum = Math.floor(Math.random()*10);
+      };
+      numArray[i]=rndmNum;
+    };
+    return numArray;
+  };
+
+// set images in HTML corresponding to these random numbers
+
+  function publishQuestions() {
+    let q1=numArray[0];
+    let q2=numArray[1];
+    let q3=numArray[2];
+    console.log(q1,q2,q3);
+
+    document.getElementById("image1").src=triviaQuestions[q1].image;
+    document.getElementById("image1").alt=triviaQuestions[q1].imageName;
+    document.getElementById("q1").innerHTML=triviaQuestions[q1].question;
+
+    document.getElementById("image2").src=triviaQuestions[q2].image;
+    document.getElementById("image2").alt=triviaQuestions[q2].imageName;
+    document.getElementById("q2").innerHTML=triviaQuestions[q2].question;
+
+    document.getElementById("image3").src=triviaQuestions[q3].image;
+    document.getElementById("image3").alt=triviaQuestions[q3].imageName;
+    document.getElementById("q3").innerHTML=triviaQuestions[q3].question;
+  }
+
+
+// check answers on submission - loop until they get all of them correct
+// display success message
+
+// record success to blockchain
+
+  </script>
