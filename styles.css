@@ -69,7 +69,7 @@ body {
 }
 
 .submit input[type=submit] {
-  background-color: grey
+  background-color: grey;
   width: 80%;
   color: black;
   margin-top: 20px;
@@ -86,19 +86,6 @@ body {
   font-family: Roboto, sans-serif;
   font-weight: 100;
   font-size: 18px;
-}
-
-.section h2  {
-  margin-top: 0;
-  font-size: 24px
-}
-
-.section h2 {
-  font-weight: 300;
-  font-size: 10px;
-  text-align: center;
-  margin-bottom: 0px;
-  margin-top: 20px;
 }
 
 .section h2 + p {
@@ -148,11 +135,6 @@ footer {
   .section {
     box-sizing: border-box;
     padding: 10px 20% 40px 20%;
-  }
-
-  .section h2 {
-    margin-top: 0;
-    font-size: 60px
   }
 
   .section br {

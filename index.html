@@ -46,13 +46,13 @@
         <div class="images">
           <img id="image1">
         </div>
-        <form method="post" id="triviaAnswer1" class=triviaAnswer>
+        <form method="post" id="triviaQ1" class=triviaAnswer>
           <label id=q1></label>
           <p></p>
           <input type="radio" name="q1answer" id="q1a1" value="a"><label for="q1a1"></label><br>
           <input type="radio" name="q1answer" id="q1a2" value="b"><label for="q1a2"></label><br>
           <input type="radio" name="q1answer" id="q1a3" value="c"><label for="q1a3"></label><br>
-          <input type="submit" value="Submit" class="submit">
+          <input type="submit" class="submit">
         </form>
         <br>
       </div>
@@ -66,13 +66,13 @@
           <img id="image2">
           <p></p>
         </div>
-        <form method="post" id="triviaAnswer2" class=triviaAnswer >
+        <form method="post" id="triviaQ2" class=triviaAnswer >
           <label id=q2></label>
           <p></p>
           <input type="radio" name="q1answer" id="q2a1" value="a"><label for="q2a1"></label><br>
           <input type="radio" name="q1answer" id="q2a2" value="b"><label for="q2a2"></label><br>
           <input type="radio" name="q1answer" id="q2a3" value="c"><label for="q2a3"></label><br>
-          <input type="submit" value="Submit" class="submit">
+          <input type="submit" class="submit">
         </form>
         <br>
       </div>
@@ -86,13 +86,14 @@
           <img id="image3">
           <p></p>
         </div>
-        <form method="post" id="triviaAnswer3" class=triviaAnswer>
+        <form method="post" id="triviaQ3" class=triviaAnswer>
           <label id=q3 for="guessField3"></label>
           <p></p>
           <input type="radio" name="q1answer" id="q3a1" value="a"><label for="q3a1"></label><br>
           <input type="radio" name="q1answer" id="q3a2" value="b"><label for="q3a2"></label><br>
           <input type="radio" name="q1answer" id="q3a3" value="c"><label for="q3a3"></label><br>
-          <input type="submit" value="Submit" class="submit">        </form>
+          <input type="submit" class="submit">
+        </form>
         <br>
       </div>
     </div>
@@ -114,12 +115,19 @@
 
 <script>
 
-// get three random numbers out of a total of 10
 
   var numArray = [];
-  getQuestionNums();
-  publishQuestions();
+  getQuestionNums();    // get random numbers for questions
+  let q1=numArray[0];
+  let q2=numArray[1];
+  let q3=numArray[2];
+  console.log(q1,q2,q3);
 
+  publishQuestions();   // push questions to page
+  checkAnswers();
+
+
+  // get three random numbers out of a total of 10
   function getQuestionNums() {
     for (i = 0; i < 3; i++) {
       let rndmNum = Math.floor(Math.random()*10);
@@ -131,14 +139,9 @@
     return numArray;
   };
 
-
 // set images in HTML corresponding to these random numbers
 
   function publishQuestions() {
-    let q1=numArray[0];
-    let q2=numArray[1];
-    let q3=numArray[2];
-    console.log(q1,q2,q3);
 
     document.getElementById("image1").src=triviaQuestions[q1].image;
     document.getElementById("image1").alt=triviaQuestions[q1].imageName;
@@ -160,6 +163,19 @@
     document.getElementById("q3a1").nextSibling.textContent=triviaQuestions[q3].answer[0];
     document.getElementById("q3a2").nextSibling.textContent=triviaQuestions[q3].answer[1];
     document.getElementById("q3a3").nextSibling.textContent=triviaQuestions[q3].answer[2];
+  }
+
+  function check(correctVal,userVal) {
+    return correctVal===userVal;
+  }
+
+  function checkAnswers() {
+    let correctQ1answer = triviaQuestions[q1].correctAnswer
+    let correctQ2answer = triviaQuestions[q2].correctAnswer
+    let correctQ3answer = triviaQuestions[q3].correctAnswer
+    console.log(triviaQuestions[q1].correctAnswer)
+    console.log(triviaQ1.addEventListener('click', "check(correctQ1answer,triviaQ1.value)"))
+
   }
 
 
