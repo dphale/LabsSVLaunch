@@ -21,10 +21,8 @@
         </div>
         <form method="post" id="register">
            <h2>Join us for some fun</h2>
-           <p>Enter your name, answer some trivia questions about TechnoServe's work, and we will have a gift for you when you leave!</p>
-           <label for="name">Name</label>
-           <input type="text" name="name" id="name"
-              placeholder="First Name + Initial" required>
+           <p>Answer some trivia questions about TechnoServe's work, and we will have a gift for you when you leave!</p>
+           <input type="text" name="ID" placeholder="namecard ID" class="submit" required>
            <input type="submit" value="Check in" class="submit">
            <p></p>
         </form>
@@ -49,9 +47,11 @@
           <img id="image1">
         </div>
         <form method="post" id="triviaAnswer1" class=triviaAnswer>
-          <label id=q1 for="guessField1"></label>
+          <label id=q1></label>
           <p></p>
-          <input type="text" id="guessField1" class="guessField">
+          <input type="radio" name="q1answer" id="q1a1" value="a"><label for="q1a1"></label><br>
+          <input type="radio" name="q1answer" id="q1a2" value="b"><label for="q1a2"></label><br>
+          <input type="radio" name="q1answer" id="q1a3" value="c"><label for="q1a3"></label><br>
           <input type="submit" value="Submit" class="submit">
         </form>
         <br>
@@ -67,9 +67,11 @@
           <p></p>
         </div>
         <form method="post" id="triviaAnswer2" class=triviaAnswer >
-          <label id=q2 for="guessField2"></label>
+          <label id=q2></label>
           <p></p>
-          <input type="text" id="guessField2" class="guessField">
+          <input type="radio" name="q1answer" id="q2a1" value="a"><label for="q2a1"></label><br>
+          <input type="radio" name="q1answer" id="q2a2" value="b"><label for="q2a2"></label><br>
+          <input type="radio" name="q1answer" id="q2a3" value="c"><label for="q2a3"></label><br>
           <input type="submit" value="Submit" class="submit">
         </form>
         <br>
@@ -87,9 +89,10 @@
         <form method="post" id="triviaAnswer3" class=triviaAnswer>
           <label id=q3 for="guessField3"></label>
           <p></p>
-          <input type="text" id="guessField3" class="guessField">
-          <input type="submit" value="Submit" class="submit">
-        </form>
+          <input type="radio" name="q1answer" id="q3a1" value="a"><label for="q3a1"></label><br>
+          <input type="radio" name="q1answer" id="q3a2" value="b"><label for="q3a2"></label><br>
+          <input type="radio" name="q1answer" id="q3a3" value="c"><label for="q3a3"></label><br>
+          <input type="submit" value="Submit" class="submit">        </form>
         <br>
       </div>
     </div>
@@ -128,20 +131,6 @@
     return numArray;
   };
 
-  createRadioElement(BIG, true);
-
-  function createRadioElement(name, checked) {
-  var radioHtml = '<input type="radio" name="' + name + '"';
-  if ( checked ) {
-      radioHtml += ' checked="checked"';
-  }
-  radioHtml += '/>';
-
-  var radioFragment = document.createElement('div');
-  radioFragment.innerHTML = radioHtml;
-
-  return radioFragment.firstChild;
-  }
 
 // set images in HTML corresponding to these random numbers
 
@@ -154,14 +143,23 @@
     document.getElementById("image1").src=triviaQuestions[q1].image;
     document.getElementById("image1").alt=triviaQuestions[q1].imageName;
     document.getElementById("q1").innerHTML=triviaQuestions[q1].question;
+    document.getElementById("q1a1").nextSibling.textContent=triviaQuestions[q1].answer[0];
+    document.getElementById("q1a2").nextSibling.textContent=triviaQuestions[q1].answer[1];
+    document.getElementById("q1a3").nextSibling.textContent=triviaQuestions[q1].answer[2];
 
     document.getElementById("image2").src=triviaQuestions[q2].image;
     document.getElementById("image2").alt=triviaQuestions[q2].imageName;
     document.getElementById("q2").innerHTML=triviaQuestions[q2].question;
+    document.getElementById("q2a1").nextSibling.textContent=triviaQuestions[q2].answer[0];
+    document.getElementById("q2a2").nextSibling.textContent=triviaQuestions[q2].answer[1];
+    document.getElementById("q2a3").nextSibling.textContent=triviaQuestions[q2].answer[2];
 
     document.getElementById("image3").src=triviaQuestions[q3].image;
     document.getElementById("image3").alt=triviaQuestions[q3].imageName;
     document.getElementById("q3").innerHTML=triviaQuestions[q3].question;
+    document.getElementById("q3a1").nextSibling.textContent=triviaQuestions[q3].answer[0];
+    document.getElementById("q3a2").nextSibling.textContent=triviaQuestions[q3].answer[1];
+    document.getElementById("q3a3").nextSibling.textContent=triviaQuestions[q3].answer[2];
   }
 
 

@@ -3,13 +3,13 @@ var triviaQuestions = [
     question : "How many farmers grow coffee globally (millions)?",
     image : "images/parchiment.jpg",
     imageName :"Coffee parchiment",
-    answer : 10
+    answer : ["10","15","20"]
   },
   {
     question : "In how many countries does TechnoServe have entrepreneurship training programs?",
     image : "images/smartDuka.jpg",
     imageName : "Duka Owner",
-    answer : 24
+    answer : ["24","36","48"]
   },
   {
     question : "What is one solution for 'remote sensing?",
