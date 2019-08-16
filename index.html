@@ -31,7 +31,7 @@
     </div>
     <!-- // [END headline] -->
 
-    <!-- // [START first image section] -->
+    <!-- // [START questions] -->
     <div class="section">
       <div class="container">
         <header>
@@ -44,60 +44,20 @@
     <div class="section">
       <div class="container">
         <div class="images">
-          <img id="image1">
+          <img id="image">
         </div>
-        <form method="post" id="triviaQ1" class=triviaAnswer>
-          <label id=q1></label>
-          <p></p>
-          <input type="radio" name="q1answer" id="q1a1" value="a"><label for="q1a1"></label><br>
-          <input type="radio" name="q1answer" id="q1a2" value="b"><label for="q1a2"></label><br>
-          <input type="radio" name="q1answer" id="q1a3" value="c"><label for="q1a3"></label><br>
-          <input type="submit" class="submit">
-        </form>
-        <br>
+        <div class=triviaAnswer>
+          <p id="q1"></p>
+          <button type="button" class="button" onclick="checkAnswer('a')" id="a1">
+          <button type="button" class="button" onclick="checkAnswer('b')" id="a2">
+          <button type="button" class="button" onclick="checkAnswer('c')" id="a3">
+          <p id="userPrompt"></p>
+        </div>
       </div>
+      <br>
     </div>
-    <!-- // [END first image section] -->
+    <!-- // [END questions] -->
 
-    <!-- // [START second image section] -->
-    <div class="section">
-      <div class="container">
-        <div class="images">
-          <img id="image2">
-          <p></p>
-        </div>
-        <form method="post" id="triviaQ2" class=triviaAnswer >
-          <label id=q2></label>
-          <p></p>
-          <input type="radio" name="q1answer" id="q2a1" value="a"><label for="q2a1"></label><br>
-          <input type="radio" name="q1answer" id="q2a2" value="b"><label for="q2a2"></label><br>
-          <input type="radio" name="q1answer" id="q2a3" value="c"><label for="q2a3"></label><br>
-          <input type="submit" class="submit">
-        </form>
-        <br>
-      </div>
-    </div>
-    <!-- // [END second image section] -->
-
-    <!-- // [START third image section] -->
-    <div class="section">
-      <div class="container">
-        <div class="images">
-          <img id="image3">
-          <p></p>
-        </div>
-        <form method="post" id="triviaQ3" class=triviaAnswer>
-          <label id=q3 for="guessField3"></label>
-          <p></p>
-          <input type="radio" name="q1answer" id="q3a1" value="a"><label for="q3a1"></label><br>
-          <input type="radio" name="q1answer" id="q3a2" value="b"><label for="q3a2"></label><br>
-          <input type="radio" name="q1answer" id="q3a3" value="c"><label for="q3a3"></label><br>
-          <input type="submit" class="submit">
-        </form>
-        <br>
-      </div>
-    </div>
-    <!-- // [END third image section] -->
 
     <!-- // [START footer] -->
     <footer>
@@ -115,21 +75,21 @@
 
 <script>
 
+  var answer, userResponse, choice, correct;
+  let questionNum = 0;
+  let numArray = [];
+  let maxQuestions = 3;
 
-  var numArray = [];
-  getQuestionNums();    // get random numbers for questions
-  let q1=numArray[0];
-  let q2=numArray[1];
-  let q3=numArray[2];
-  console.log(q1,q2,q3);
+  getQuestionNums();            // get random numbers for questions
+  let currentQuestion = numArray[questionNum]
+  let correctAnswer = triviaQuestions[currentQuestion].correctAnswer;
 
-  publishQuestions();   // push questions to page
-  checkAnswers();
+  renderQuestion(questionNum);       // push questions to page
 
 
   // get three random numbers out of a total of 10
   function getQuestionNums() {
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < maxQuestions; i++) {
       let rndmNum = Math.floor(Math.random()*10);
       while (numArray.includes(rndmNum)) {
         rndmNum = Math.floor(Math.random()*10);
@@ -139,47 +99,35 @@
     return numArray;
   };
 
-// set images in HTML corresponding to these random numbers
+  // display image, question, options; set correct answer for question
+  function renderQuestion(currentQuestion) {
+      document.getElementById("image").src=triviaQuestions[currentQuestion].image;
+      document.getElementById("image").alt=triviaQuestions[currentQuestion].imageName;
+      document.getElementById("q1").innerHTML=triviaQuestions[currentQuestion].question;
+      document.getElementById("a1").innerHTML=triviaQuestions[currentQuestion].answer[0];
+      document.getElementById("a2").innerHTML=triviaQuestions[currentQuestion].answer[1];
+      document.getElementById("a3").innerHTML=triviaQuestions[currentQuestion].answer[2];
 
-  function publishQuestions() {
+  };
 
-    document.getElementById("image1").src=triviaQuestions[q1].image;
-    document.getElementById("image1").alt=triviaQuestions[q1].imageName;
-    document.getElementById("q1").innerHTML=triviaQuestions[q1].question;
-    document.getElementById("q1a1").nextSibling.textContent=triviaQuestions[q1].answer[0];
-    document.getElementById("q1a2").nextSibling.textContent=triviaQuestions[q1].answer[1];
-    document.getElementById("q1a3").nextSibling.textContent=triviaQuestions[q1].answer[2];
-
-    document.getElementById("image2").src=triviaQuestions[q2].image;
-    document.getElementById("image2").alt=triviaQuestions[q2].imageName;
-    document.getElementById("q2").innerHTML=triviaQuestions[q2].question;
-    document.getElementById("q2a1").nextSibling.textContent=triviaQuestions[q2].answer[0];
-    document.getElementById("q2a2").nextSibling.textContent=triviaQuestions[q2].answer[1];
-    document.getElementById("q2a3").nextSibling.textContent=triviaQuestions[q2].answer[2];
-
-    document.getElementById("image3").src=triviaQuestions[q3].image;
-    document.getElementById("image3").alt=triviaQuestions[q3].imageName;
-    document.getElementById("q3").innerHTML=triviaQuestions[q3].question;
-    document.getElementById("q3a1").nextSibling.textContent=triviaQuestions[q3].answer[0];
-    document.getElementById("q3a2").nextSibling.textContent=triviaQuestions[q3].answer[1];
-    document.getElementById("q3a3").nextSibling.textContent=triviaQuestions[q3].answer[2];
+  function checkAnswer(userResponse) {
+    if (userResponse==correctAnswer) {
+      console.log(correctAnswer)
+      document.getElementById("userPrompt").innerHTML="CORRECT" //display some nice text here replacing the buttons
+      // click to get your next question
+      console.log(questionNum)
+      if (questionNum < maxQuestions) {
+        questionNum++
+        renderQuestion(questionNum)
+      } else {
+          document.getElementById("userPrompt").innerHTML="FINISHED"
+          //NEED TO EXIT HERE
+      }
+    } else {
+        document.getElementById("userPrompt").innerHTML="TRY AGAIN PLEASE"
+    }
   }
 
-  function check(correctVal,userVal) {
-    return correctVal===userVal;
-  }
-
-  function checkAnswers() {
-    let correctQ1answer = triviaQuestions[q1].correctAnswer
-    let correctQ2answer = triviaQuestions[q2].correctAnswer
-    let correctQ3answer = triviaQuestions[q3].correctAnswer
-    console.log(triviaQuestions[q1].correctAnswer)
-    console.log(triviaQ1.addEventListener('click', "check(correctQ1answer,triviaQ1.value)"))
-
-  }
-
-
-// check answers on submission - loop until they get all of them correct
 // display success message
 
 // record success to blockchain
