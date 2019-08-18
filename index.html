@@ -22,7 +22,7 @@
         <form method="post" id="register">
            <h2>Join us for some fun</h2>
            <p>Answer some trivia questions about TechnoServe's work, and we will have a gift for you when you leave!</p>
-           <input type="text" name="ID" placeholder="namecard ID" class="submit" required>
+           <input type="text" placeholder="namecard ID" class="submit" required>
            <input type="submit" value="Check in" class="submit">
            <p></p>
         </form>
@@ -35,8 +35,11 @@
     <div class="section">
       <div class="container">
         <header>
-          <h2>Our Impact</h2>
-          <p>Look around the room for examples of TechnoServe's work. Then see if you can answer the trivia questions below.</p>
+          <h2>Learn More About TechnoServe</h2>
+          <p id="userPrompt">Look around the room for examples of TechnoServe's work. Then see if you can answer the trivia questions below.</p>
+          <p id="backgroundInfo"></p>
+          <p id="quizStatus"><p>
+          <button type="button" onclick="renderQuestion()" id="getNext">Next Question</button>
         </header>
       </div>
     </div>
@@ -46,18 +49,16 @@
         <div class="images">
           <img id="image">
         </div>
-        <div class=triviaAnswer>
+        <div class=triviaAnswer id=triviaAnswer>
           <p id="q1"></p>
           <button type="button" class="button" onclick="checkAnswer('a')" id="a1">
           <button type="button" class="button" onclick="checkAnswer('b')" id="a2">
           <button type="button" class="button" onclick="checkAnswer('c')" id="a3">
-          <p id="userPrompt"></p>
         </div>
       </div>
       <br>
     </div>
     <!-- // [END questions] -->
-
 
     <!-- // [START footer] -->
     <footer>
@@ -68,26 +69,30 @@
     <!-- // [END footer] -->
 
   </body>
-</html>
 
 <!-- external js file with questions in "triviaQuestion array variable" -->
 <script type="text/javascript" src="triviaQuestions.js"></script>
 
 <script>
 
-  var answer, userResponse, choice, correct;
-  let questionNum = 0;
+  var userResponse, currentQuestion, correctAnswer, passed;
+  let questionNum = 0;  //note that questions start with 0
+  let numCorrect = 0;
   let numArray = [];
   let maxQuestions = 3;
+  let passed = false;
 
-  getQuestionNums();            // get random numbers for questions
-  let currentQuestion = numArray[questionNum]
-  let correctAnswer = triviaQuestions[currentQuestion].correctAnswer;
+  //create button for getting next question; hide for now
+  var getNextButton = document.getElementById("getNext");
+  getNextButton.style.display = "none";
 
-  renderQuestion(questionNum);       // push questions to page
+  // get random numbers for questions
+  getQuestionNums();
 
+  // push questions to page
+  renderQuestion();
 
-  // get three random numbers out of a total of 10
+  // get three random numbers to pick random trivia questions from array
   function getQuestionNums() {
     for (i = 0; i < maxQuestions; i++) {
       let rndmNum = Math.floor(Math.random()*10);
@@ -96,40 +101,83 @@
       };
       numArray[i]=rndmNum;
     };
+    console.log(numArray);
     return numArray;
   };
 
-  // display image, question, options; set correct answer for question
-  function renderQuestion(currentQuestion) {
-      document.getElementById("image").src=triviaQuestions[currentQuestion].image;
-      document.getElementById("image").alt=triviaQuestions[currentQuestion].imageName;
-      document.getElementById("q1").innerHTML=triviaQuestions[currentQuestion].question;
-      document.getElementById("a1").innerHTML=triviaQuestions[currentQuestion].answer[0];
-      document.getElementById("a2").innerHTML=triviaQuestions[currentQuestion].answer[1];
-      document.getElementById("a3").innerHTML=triviaQuestions[currentQuestion].answer[2];
-
-  };
-
-  function checkAnswer(userResponse) {
-    if (userResponse==correctAnswer) {
-      console.log(correctAnswer)
-      document.getElementById("userPrompt").innerHTML="CORRECT" //display some nice text here replacing the buttons
-      // click to get your next question
-      console.log(questionNum)
-      if (questionNum < maxQuestions) {
-        questionNum++
-        renderQuestion(questionNum)
-      } else {
-          document.getElementById("userPrompt").innerHTML="FINISHED"
-          //NEED TO EXIT HERE
-      }
-    } else {
-        document.getElementById("userPrompt").innerHTML="TRY AGAIN PLEASE"
-    }
+  function enableButtons() {
+    document.getElementById("a1").disabled = false;
+    document.getElementById("a2").disabled = false;
+    document.getElementById("a3").disabled = false;
   }
 
-// display success message
+  function disableButtons() {
+    document.getElementById("a1").disabled = true;
+    document.getElementById("a2").disabled = true;
+    document.getElementById("a3").disabled = true;
+  }
+
+  // display image, question, options
+  function renderQuestion() {
+    currentQuestion = numArray[questionNum];
+    console.log(`Current question: ${currentQuestion}`);
+    //disable button requesting next question and hide info at top
+    getNextButton.style.display = "none";
+    document.getElementById("quizStatus").style.display="none";
+    document.getElementById("userPrompt").style.display="none";
+    document.getElementById("backgroundInfo").style.display="none";
+
+    //show questions
+    document.getElementById("image").src=triviaQuestions[currentQuestion].image;
+    document.getElementById("image").alt=triviaQuestions[currentQuestion].imageName;
+    document.getElementById("q1").innerHTML=triviaQuestions[currentQuestion].question;
+    document.getElementById("a1").innerHTML=triviaQuestions[currentQuestion].answer[0];
+    document.getElementById("a2").innerHTML=triviaQuestions[currentQuestion].answer[1];
+    document.getElementById("a3").innerHTML=triviaQuestions[currentQuestion].answer[2];
+    enableButtons();
+  };
+
+  //called on click of one of the answer options
+  function checkAnswer(userResponse) {
+    correctAnswer = triviaQuestions[currentQuestion].correctAnswer;
+
+    console.log(`Correct answer: ${correctAnswer} User response: ${userResponse}`)
+    if (userResponse==correctAnswer) {
+      //display text giving correct answer and more background info
+      document.getElementById("userPrompt").style.display="block";
+      document.getElementById("backgroundInfo").style.display="block";
+      document.getElementById("quizStatus").style.display="block";
+      document.getElementById("userPrompt").innerHTML="Congratulations! You got it right!";
+      document.getElementById("backgroundInfo").innerHTML=triviaQuestions[currentQuestion].context;
+      console.log(triviaQuestions[currentQuestion].context);
+      disableButtons();
+      numCorrect++;
+      displayQuizProgress();
+      console.log(questionNum)
+      if (questionNum < maxQuestions-1) {
+        //questionNum is an array counter, starting at 0
+        //display button to get next question; render question onclick
+        getNextButton.style.display = "block";
+        questionNum++;
+      } else {
+        document.getElementById("userPrompt").innerHTML="Congratulations! You finished!";
+        document.getElementById("quizStatus").style.display = "none";
+        document.getElementById("triviaAnswer").style.display = "none"
+        passed = true;
+      }
+    } else {
+      displayQuizProgress();
+      //coaching text and more background info
+      document.getElementById("userPrompt").innerHTML="Not quite. Try again.";
+    };
+  }
+
+function displayQuizProgress() {
+  var status=`${numCorrect} out of ${maxQuestions} correct.`;
+  document.getElementById("quizStatus").innerHTML=status;
+}
 
 // record success to blockchain
 
   </script>
+</html>

@@ -67,8 +67,8 @@ body {
   font-size: 18px;
 }
 
-.submit input[type=submit] {
-  background-color: grey;
+#register input[type=text] {
+  background-color: white;
   width: 80%;
   color: black;
   margin-top: 20px;
@@ -76,6 +76,10 @@ body {
   border: none;
   box-sizing: border-box;
   font-size: 18px;
+}
+
+#getNext {
+  
 }
 
 .button {
@@ -88,7 +92,7 @@ body {
 
 .section {
   box-sizing: border-box;
-  padding: 20px;
+  padding: 10px;
   background-color: white;
   font-family: Roboto, sans-serif;
   font-weight: 100;
@@ -115,7 +119,7 @@ footer {
 
   .container {
     margin: auto;
-    max-width: 800px;
+    max-width: 750px;
   }
 
   #headline #blurb {
